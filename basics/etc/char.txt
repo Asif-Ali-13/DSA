@@ -1,0 +1,13 @@
+----------------------------------------------------------------------------------------
+
+we want to know whether a given character ch is alphaNumeric or not
+
+Character.isLetterOrDigit( ch ) -> return bool 
+
+----------------------------------------------------------------------------------------
+
+we want to lowercase a given character ch 
+
+Character.toLowerCase( ch ) -> return lowercase character
+
+----------------------------------------------------------------------------------------
