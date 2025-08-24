@@ -1,0 +1,34 @@
+let say N = 36 
+we want to find all the divisors of N
+
+----------------------------------------------------------------------------------------
+
+Basic approach:
+
+for(int i=1; i<=n; i++){
+    if(n%i == 0){
+        System.out.println(i);
+    }
+}
+tc: O(n)
+sc: O(1)
+
+----------------------------------------------------------------------------------------
+
+optimal approach:
+
+bcz : if i is a divisor of n, then n/i is also a divisor of n
+
+for(int i=1; i<=Math.sqrt(n); i++){
+    if(n%i == 0){
+        System.out.println(i);
+        if(i != n/i){
+            System.out.println(n/i);
+        }
+    }
+}
+
+tc: O(sqrt(n))
+sc: O(1)    
+
+----------------------------------------------------------------------------------------

@@ -1,0 +1,53 @@
+let say we have two numbers n and m 
+we want to find the gcd (greatest common divisor) or hcf (highest common factor)
+
+----------------------------------------------------------------------------------------
+
+Basic approach: 
+
+int gcd = 1;
+for(int i=1; i<Math.min(n, m); i++){
+    if(n%i == 0 && m%i == 0){
+        gcd = i;
+    }
+}
+return gcd;
+
+tc: O(min(n, m))
+sc: O(1)
+
+----------------------------------------------------------------------------------------
+
+Better approach:
+
+for(int i=Math.min(n, m); i>=1; i--){
+    if(n%i == 0 && m%i == 0){
+        return i;
+    }
+}
+
+tc: O(min(n, m))
+sc: O(1)
+
+----------------------------------------------------------------------------------------
+
+optimal approach: 
+
+Using euclidean algorithm: 
+    The Euclidean Algorithm is a method for finding the greatest common divisor of two numbers. 
+    It operates on the principle that the GCD of two numbers remains the same even 
+    if the smaller number is subtracted from the larger number.
+
+
+while(n>0 && m>0){
+    if(n > m) n = n % m;
+    else m = m % n;
+}
+if(n == 0) return m;
+return n;
+
+
+tc: O(min(n, m))
+sc: O(1)
+
+----------------------------------------------------------------------------------------
