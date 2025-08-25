@@ -1,0 +1,30 @@
+----------------------------------------------------------------------------------------
+
+scope/data type        inside main         globally
+
+int                     1e6                 1e7
+boolean                 1e7                 1e8
+
+segmentation fault error -> if try to allocate more than the described
+
+----------------------------------------------------------------------------------------
+
+Time complexity : 
+
+for sorted map : (Tree map in java)
+    all cases -> best, avg., worst -> O(logN)
+
+for unordered map : (HashMap in java)
+    best, avg. -> O(1)
+    worst -> O(N) -> bcz of internal collisions 
+
+where N -> no. of element in the map 
+
+----------------------------------------------------------------------------------------
+
+Hashing is implemented : 
+    1. division method
+    2. folding method
+    3. mod square method
+
+----------------------------------------------------------------------------------------
