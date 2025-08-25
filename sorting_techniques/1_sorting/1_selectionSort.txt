@@ -1,0 +1,38 @@
+----------------------------------------------------------------------------------------
+
+approach: 
+    1. select the first element (loop 0 to n-1)
+    2. compare it with the rest and find the idx of min element
+    3. swap it with the min
+    4. do this for n-1 times , n = size of array
+
+key points: 
+    1. loop 0 to n-1
+    2. find min 
+    3. swap
+
+rem: 
+    1. at ith iteration, we found the ith smallest element in the array
+
+----------------------------------------------------------------------------------------
+
+code: 
+
+int n = arr.length;
+for(int i=0; i<n-1; i++){
+    int mini = i;
+
+    for(int j=i+1; j<n; j++){
+        if(arr[j] < arr[mini]) mini = j;
+    }
+    int temp = arr[i];
+    arr[i] = arr[mini];
+    arr[mini] = temp;
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(N^2)
+sc: O(1)
+
+----------------------------------------------------------------------------------------
