@@ -1,0 +1,60 @@
+----------------------------------------------------------------------------------------
+
+approach: 
+    1. pick the pivot and put it in correct place.
+    2. smaller on left and larger on right
+
+    1. mark first ele as pivot 
+    2. find the first greater (left half) and smaller (right half)
+    3. swap till i <= j 
+    4. put pivot at its correct place
+
+key points: 
+    1. low < high
+    2. find pIdx (partition index)
+    3. sort left and right half
+
+    partition: 
+        1. pivot = arr[low] , i = low, j = high
+        2. while i < j 
+        3. while arr[i] <= pivot and i < high -> i++
+        4. while arr[j] > pivot and j > low -> j--
+        5. if i < j -> swap
+        6. swap pivot with arr[j] , return j 
+
+
+----------------------------------------------------------------------------------------
+
+code: 
+
+partition(List<Integer> arr, int low, int high)
+    int pivot = arr[low];
+    int i = low, j = high;
+
+    while(i < j){
+
+        while(arr[i] <= pivot && i < high) i++;
+        while(arr[j] > pivot && j > low) j--;
+
+        if(i < j){
+            int temp = arr.get(i);
+            arr.set(i, arr.get(j));
+            arr.set(j, temp);
+        }
+    }
+    swap -> pivot and arr.get(j)
+    return j;
+
+quickSort(List<Integer> arr, low, high)
+    if(low < high){
+        int pIdx = partition(arr, low, high);
+        quickSort(arr, low, pIdx-1);
+        quickSort(arr, pIdx+1, high);
+    }
+
+----------------------------------------------------------------------------------------
+
+tc: O(N*log(N))
+sc: O(1) -> just recursion stack space nothing else
+
+----------------------------------------------------------------------------------------
