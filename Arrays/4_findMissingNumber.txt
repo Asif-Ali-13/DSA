@@ -1,0 +1,29 @@
+----------------------------------------------------------------------------------------
+
+problem statement: 
+Given an array nums containing n distinct numbers in the range [0, n], 
+return the only number in the range that is missing from the array.
+
+----------------------------------------------------------------------------------------
+
+approach: 
+    A. summation
+    1. ((n * (n+1)) / 2) - sum of all elements
+
+    B. using xor
+    1. x1 = 0, x2 = 0
+    2. find x1 -> [1 to n] and x2 -> [all array elements]
+    3. return x1 xor x2 (x1 and x2 contains each element twice execpt the missing one)
+
+    {
+        properties of xor used 
+        1. xor of a with 0 -> A
+        2. xor of a with a -> 0
+    }
+
+----------------------------------------------------------------------------------------
+
+tc: O(N)
+sc: O(1)
+
+----------------------------------------------------------------------------------------
