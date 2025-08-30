@@ -1,0 +1,73 @@
+----------------------------------------------------------------------------------------
+
+problem statement: 
+find the next greater element of the given permutation.
+if not possible then return the smallest.
+
+----------------------------------------------------------------------------------------
+
+approach: 
+    1. find the idx of the ele whose next is greater from back
+    2. find the first greater from back then idx's ele -> swap
+    3. swap the rest from idx + 1 to end
+
+key points: 
+    1. loop i (n-2 to 0) 
+    2. if nums[i] < nums[i+1] -> idx = i
+    3. loop i (n-1 to 0)
+    4. if nums[i] > nums[idx] -> swap
+    5. swap the rest (idx+1 to n-1)
+
+----------------------------------------------------------------------------------------
+
+code: 
+
+class Solution {
+    private void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    private void swapRange(int[] nums, int st, int ed){
+        while(st <= ed){
+            swap(nums, st, ed);
+            st++;
+            ed--;
+        }
+    }
+
+    public void nextPermutation(int[] nums) {
+        
+        int n = nums.length;
+        int idx = -1;
+
+        for(int i=n-2; i>=0; i--){
+            if(nums[i] < nums[i+1]){
+                idx = i;
+                break;
+            }
+        }
+        if(idx == -1) {
+            swapRange(nums, 0, n-1);
+            return;
+        }
+
+        for(int i=n-1; i>idx; i--){
+            if(nums[i] > nums[idx]){
+                swap(nums, i, idx);
+                break;
+            }
+        }
+
+        swapRange(nums, idx+1, n-1);
+        return;
+    }
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(N)
+sc: O(1)
+
+----------------------------------------------------------------------------------------
