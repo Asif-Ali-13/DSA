@@ -1,0 +1,58 @@
+----------------------------------------------------------------------------------------
+
+problem statement: 
+Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.
+
+----------------------------------------------------------------------------------------
+
+approach: 
+    1. finding those two elements having highest frequency
+    2. checking if they really are 
+
+----------------------------------------------------------------------------------------
+
+code: 
+
+class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+
+        int n = nums.length;
+        int ef = 0, es = 0; // ef -> element first, es -> element second
+        int ff = 0, fs = 0; // ff -> frequency first, fs -> frequency second
+        
+        // Extend Boyer Moore's Voting Algo
+        for(int i: nums){
+            if(ff == 0 && i != es){
+                ff = 1;
+                ef = i;
+            }
+            else if(fs == 0 && i != ef){
+                fs = 1;
+                es = i;
+            }
+            else if(i == ef) ff++;
+            else if(i == es) fs++;
+            else {
+                ff--; fs--;
+            }
+        }
+        
+        ff = 0; fs = 0;
+        for(int i: nums){
+            if(i == ef) ff++;
+            else if(i == es) fs++;
+        }
+
+        if(ff > (n / 3)) res.add(ef);
+        if(fs > (n / 3)) res.add(es);
+        return res;
+    }
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(N)
+sc: O(1)
+
+----------------------------------------------------------------------------------------

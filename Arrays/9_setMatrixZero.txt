@@ -1,0 +1,54 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Given an m x n integer matrix matrix, if an element is 0, 
+set its entire row and column to 0's.
+
+----------------------------------------------------------------------------------------
+
+approach: 
+    1. try to have a mark to know which row and col needs to be 0.
+
+key points: 
+    1. j == 0, all i -> which row to be zero
+    2. i == 0 and j != 0 -> which col to be zero 
+    3. make var col0 -> j == 0 -> needs to be zero or not
+    4. 
+
+----------------------------------------------------------------------------------------
+
+code: 
+
+int col0 = 1;
+for(int i=0; i<n; i++){
+    for(int j=0; j<m; j++){
+        
+        if(mat[i][j] == 0){
+            mat[i][0] = 0;
+
+            if(j != 0) mat[0][j] = 0;
+            else col0 = 0;
+        }
+    }
+}
+
+for(int i=1; i<n; i++){
+    for(int j=1; j<m; j++){
+        
+        if(mat[i][j] != 0){
+            if(mat[i][0] == 0 || mat[0][j] == 0){
+                mat[i][j] = 0;
+            }
+        }
+    }
+}
+
+if(mat[0][0] == 0) for(int j=0; j<m; j++) mat[0][j] = 0;
+if(col0 == 0) for(int i=0; i<n; i++) mat[i][0] = 0;
+
+----------------------------------------------------------------------------------------
+
+tc: O(N * M)
+sc: O(1)
+
+----------------------------------------------------------------------------------------
