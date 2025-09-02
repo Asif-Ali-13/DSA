@@ -1,0 +1,40 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Suppose an array of length n sorted in ascending order is rotated between 1 and n times.
+Given the sorted rotated array nums of unique elements, 
+return the minimum element of this array.
+
+----------------------------------------------------------------------------------------
+
+approach:
+    1. if left part is sorted, takes it low
+    2. eleminate left part
+    3. else if right part is sorted, take its low 
+    4. eleminate right part
+
+----------------------------------------------------------------------------------------
+
+code:
+int mini = Integer.MAX_VALUE;
+
+int l = 0, h = nums.length - 1;
+while(l <= h){
+
+    int m = l + (h - l) / 2;
+    if(nums[l] <= nums[m]){
+        mini = Math.min(mini, nums[l]);
+        l = m + 1;
+    }else {
+        mini = Math.min(mini, nums[m]);
+        h = m - 1;
+    }
+}
+return mini;
+
+----------------------------------------------------------------------------------------
+
+tc: O(log N)
+sc: O(1)
+
+----------------------------------------------------------------------------------------
