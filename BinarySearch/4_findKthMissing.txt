@@ -1,0 +1,52 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Given an array arr of positive integers sorted in a strictly increasing order, 
+and an integer k.
+Return the kth positive integer that is missing from this array.
+
+----------------------------------------------------------------------------------------
+
+approach:
+    1. we are assuming k is the required answer
+    2. if ith element is less than k, then increment k
+
+    OR
+
+    1. checking what should be the actual value of arr[mid]
+    2. if it is less than k, then l = mid + 1; else h = mid - 1
+
+----------------------------------------------------------------------------------------
+
+code: 
+for(int i: arr){
+    if(i <= k) k++;
+    else break;
+}
+return k;
+
+OR 
+
+int n = arr.length;
+int l = 0, h = n-1;
+
+while(l <= h){
+    int m = (l + h) / 2;
+    int missing = arr[m] - (m+1);
+
+    if(missing < k) l = m + 1;
+    else h = m - 1;
+}
+return k + h + 1;
+
+----------------------------------------------------------------------------------------
+
+tc: O(N)
+sc: O(1)
+
+OR
+
+tc: O(log N)   
+sc: O(1)
+
+----------------------------------------------------------------------------------------

@@ -1,0 +1,43 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+A peak element is an element that is strictly greater than its neighbors.
+
+Given a 0-indexed integer array nums, find a peak element, and return its index. 
+If the array contains multiple peaks, return the index to any of the peaks.
+You may imagine that nums[-1] = nums[n] = -∞.
+
+----------------------------------------------------------------------------------------
+
+approach: 
+    1. check for idx 0 and n-1 separatly
+    2. l: 1 and h: n-2
+    3. check condition for m 
+    4. nums[m-1] < nums[m] -> l = m + 1
+    5. else h = m - 1
+
+
+----------------------------------------------------------------------------------------
+
+code: 
+
+int n = nums.length;
+if(n == 1 || nums[0] > nums[1]) return 0;
+else if(nums[n-2] < nums[n-1]) return n-1;
+
+int l = 1, h = n-2;
+while(l <= h){
+
+    int m = l + (h - l) / 2;
+    if(nums[m-1] < nums[m] && nums[m] > nums[m+1]) return m;
+    else if(nums[m-1] < nums[m]) l = m+1;
+    else h = m-1;
+}
+return -1;
+
+----------------------------------------------------------------------------------------
+
+tc: O(log N)
+sc: O(1)
+
+----------------------------------------------------------------------------------------
