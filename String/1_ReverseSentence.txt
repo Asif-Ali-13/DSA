@@ -1,0 +1,63 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Given an input string s, reverse the order of the words.
+A word is defined as a sequence of non-space characters. 
+The words in s will be separated by at least one space.
+
+Return a string of the words in reverse order concatenated by a single space.
+
+----------------------------------------------------------------------------------------
+
+approach: 
+    1. split the string into words
+    2. reverse the order of the words
+    3. concatenate the words
+    
+/**
+
+.split("\\s+")
+    - split(regex) breaks a string into an array, using the regex pattern as separator.
+    - "\\s+" is a regular expression meaning:
+    - \s → any whitespace (space, tab, newline).
+    - + → one or more occurrences.
+So "\\s+" means: split where there is one or more whitespace.
+
+tc: O(N)
+
+**/
+----------------------------------------------------------------------------------------
+
+code: 
+String reverseWords(String s) {
+    String[] u = s.trim().split("\\s+");
+    String h = "";
+    for(int i = u.length-1; i >= 0; i--){
+        h = h + u[i];
+        if(i != 0){
+            h = h + " ";
+        }
+    }
+    return h;
+}
+
+OR 
+
+String reverseWords(String s) {
+        
+    StringBuilder sb = new StringBuilder();
+    String[] words = s.split(" ");
+
+    for(int i=words.length-1; i>=0; i--){
+        if(!words[i].equals("")) sb.append(words[i] + " ");
+        else sb.append(words[i]);
+    }
+    return sb.toString().trim();
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(N)
+sc: O(N)
+
+----------------------------------------------------------------------------------------

@@ -1,0 +1,38 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Write an efficient algorithm that searches for a value target in an m x n integer matrix. 
+This matrix has the following properties:
+
+- Integers in each row are sorted in ascending from left to right.
+- Integers in each column are sorted in ascending from top to bottom.
+
+----------------------------------------------------------------------------------------
+
+approach:
+    1. we can leverage the fact that the matrix is sorted in both directions
+    2. so we can use binary search to find the target
+
+----------------------------------------------------------------------------------------
+
+code:
+
+boolean searchMatrix(int[][] mat, int t) {
+        
+    int n = mat.length, m = mat[0].length; 
+    int r = 0, c = m -1;
+
+    while(r < n && c >= 0){
+        if(mat[r][c] == t) return true;
+        else if(mat[r][c] < t) r++;
+        else c--;
+    }
+    return false;
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(N + M)
+sc: O(1)
+
+----------------------------------------------------------------------------------------
