@@ -1,0 +1,33 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Given a singly linked list of integers, find the middle node of the linked list.
+
+If the length of the linked list is even, return the second middle node.
+
+----------------------------------------------------------------------------------------
+
+approach:
+    1. Think of a person A takes 2 steps and B takes 1 step each time.
+    2. when A reaches the end of the list, B will be at the middle node.
+
+----------------------------------------------------------------------------------------
+
+code:
+
+ListNode middleNode(ListNode head) {
+        
+    ListNode fast = head, slow = head;
+    while(fast != null && fast.next != null){
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow;
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(N)    
+sc: O(1)
+
+----------------------------------------------------------------------------------------
