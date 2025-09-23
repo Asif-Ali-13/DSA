@@ -1,0 +1,52 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Given the head of a linked list, return the node where the cycle begins. 
+If there is no cycle, return null.
+
+----------------------------------------------------------------------------------------
+
+approach:
+
+    | l1 | l1 |--------|
+    A -> B -> C -> D   |
+        |^        |    |
+        ||________|    |
+        |------d-------|
+
+    1. fast and slow pointers.
+    2. when slow is at B ( l1 distance from head), fast is at C.
+    3. after d steps, fast and slow will meet.
+    4. re-init slow to head.
+    5. now slow and fast, both are l1 distance from the B.
+    6. move both of them by one step and check if they meet.
+
+----------------------------------------------------------------------------------------
+
+code:
+
+ListNode detectCycle(ListNode head) {        
+    ListNode slow = head, fast = head;
+
+    while(fast != null && fast.next != null){
+        slow = slow.next;
+        fast = fast.next.next;
+    
+        if(fast == slow){
+            slow = head;
+            while(slow != fast){
+                slow = slow.next;
+                fast = fast.next;
+            }
+            return slow;
+        }
+    }
+    return null;
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(N)
+sc: O(1)
+
+----------------------------------------------------------------------------------------
