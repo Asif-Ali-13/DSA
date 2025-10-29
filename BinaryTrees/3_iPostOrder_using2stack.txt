@@ -1,0 +1,43 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Given the root of a binary tree, return the postorder traversal of its nodes' values.
+
+----------------------------------------------------------------------------------------
+
+approach:
+    1. in postOrder we need to traverse tree => left -> right -> root
+    2. we will take help of two stacks
+    3. one is for traversal and another is for storing the reverse postOrder
+    4. first push the left and then right while traversing
+
+----------------------------------------------------------------------------------------
+
+code:
+private List<Integer> iterativeUsing2stack(TreeNode root){
+        
+    List<Integer> postOrder = new ArrayList<>();
+    if(root == null) return postOrder;
+
+    Stack<TreeNode> traverse = new Stack<>();
+    Stack<TreeNode> reverse = new Stack<>();
+
+    traverse.push(root);
+    while(!traverse.isEmpty()){
+
+        TreeNode node = traverse.pop();
+        reverse.push(node);
+        if(node.left != null) traverse.push(node.left);
+        if(node.right != null) traverse.push(node.right);
+    }
+
+    while(!reverse.isEmpty()) postOrder.add(reverse.pop().val);
+    return postOrder;
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(2N) ~ O(N)
+sc: O(2N) ~ O(N)
+
+----------------------------------------------------------------------------------------

@@ -1,0 +1,54 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Given the root of a binary tree, return the postorder traversal of its nodes' values.
+
+----------------------------------------------------------------------------------------
+
+approach:
+    1. in postOrder we need to traverse tree => left -> right -> root
+    2. until node is not null or stack is not empty
+    3. if node is not null, push and go to left
+    4. else check if right is null or not 
+    5. if null, make it node
+    6. else make it temp and pop, and add it to the list
+    7. add node until peek's right is temp
+
+----------------------------------------------------------------------------------------
+
+code:
+priavte List<Integer> iterativeUsingStack(TreeNode root){
+
+    List<Integer> postOrder = new ArrayList<>();
+    if(root == null) return postOrder;
+
+    Stack<TreeNode> st = new Stack<>();
+    TreeNode node = root;
+
+    while(node != null || !st.isEmpty()){
+        if(node != null){
+            st.push(node);
+            node = node.left;
+        }
+        else{
+            if(st.peek().right != null) node = st.peek().right;
+            else {
+                TreeNode temp = st.pop();
+                postOrder.add(temp.val);
+
+                while(!st.isEmpty() && st.peek().right == temp){
+                    temp = st.pop();
+                    postOrder.add(temp.val);
+                }
+            }
+        }
+    }
+    return postOrder;
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(N)
+sc: O(N)
+
+----------------------------------------------------------------------------------------
