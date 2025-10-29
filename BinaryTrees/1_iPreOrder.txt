@@ -1,0 +1,39 @@
+----------------------------------------------------------------------------------------
+
+problem statement: 
+Given the root of a binary tree, return the preorder traversal of its nodes' values.
+
+----------------------------------------------------------------------------------------
+
+approach:
+    1. in preOrder we need to traverse tree => root -> left -> right
+    2. we need to use stack to store the nodes
+    3. first push right and then left
+    
+----------------------------------------------------------------------------------------
+
+code:
+private List<Integer> iterativePreOrder(TreeNode root){
+
+    List<Integer> preOrder = new ArrayList<>();
+    if(root == null) return preOrder;
+
+    Stack<TreeNode> st = new Stack<>();
+    st.push(root);
+
+    while(!st.isEmpty()){
+        TreeNode node = st.pop();
+        preOrder.add(node.val);
+
+        if(node.right != null) st.push(node.right);
+        if(node.left != null) st.push(node.left);
+    }
+    return preOrder;
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(N)
+sc: O(N)
+
+----------------------------------------------------------------------------------------

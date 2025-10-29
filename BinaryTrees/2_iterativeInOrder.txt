@@ -1,0 +1,45 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Given the root of a binary tree, return the inorder traversal of its nodes' values.
+
+----------------------------------------------------------------------------------------
+
+approach:
+    1. in inOrder we need to traverse tree => left -> root -> right
+    2. we will take help of current node and stack
+    3. go to left till leaf node is reached
+    4. pop the node and add it to the list
+    5. go to right
+
+----------------------------------------------------------------------------------------
+
+code:
+private List<Integer> iterativeInOrder(TreeNode root){
+
+    List<Integer> inOrder = new ArrayList<>();
+    if(root == null) return inOrder;
+
+    Stack<TreeNode> st = new Stack<>();
+    TreeNode node = root;
+
+    while(node != null || !st.isEmpty()){
+        
+        while(node != null){
+            st.push(node);
+            node = node.left;
+        }
+
+        node = st.pop();
+        inOrder.add(node.val);
+        node = node.right;
+    }
+    return inOrder;
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(N)
+sc: O(N)
+
+----------------------------------------------------------------------------------------
