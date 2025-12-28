@@ -1,0 +1,61 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Given a collection of candidate numbers (candidates) and a target number (target), 
+find all unique combinations in candidates where the candidate numbers sum to target.
+
+Each number in candidates may only be used once in the combination.
+Note: The solution set must not contain duplicate combinations.
+
+----------------------------------------------------------------------------------------
+
+approach:
+    1. use the recursion with backtracking
+    2. read the question carefully : 
+        Each number in candidates may only be used once in the combination.
+    3. need only unique elements in each list of the result
+
+----------------------------------------------------------------------------------------
+
+code:
+
+class Solution {
+    private void findRes(
+        int i, int[] candi, int t, 
+        List<Integer> ls, List<List<Integer>> res
+    ){
+        if(t == 0) {
+           res.add(new ArrayList<>(ls));
+           return; 
+        }
+
+        if(i >= candi.length || t < 0) return;
+
+        for(int idx=i; idx<candi.length; idx++){
+            if(candi[idx] > t) continue;
+            if(idx > i && candi[idx] == candi[idx-1]) continue;
+
+            ls.add(candi[idx]);
+            findRes(idx+1, candi, t-candi[idx], ls, res);
+            ls.remove(ls.size() -1);
+        }
+    }
+
+    public List<List<Integer>> combinationSum2(
+        int[] candidates, int target
+    ) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> ls = new ArrayList<>();
+        Arrays.sort(candidates);
+
+        findRes(0, candidates, target, ls, res);
+        return res;
+    }
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(N * 2^N)
+sc: O(N * 2^N)
+
+----------------------------------------------------------------------------------------
