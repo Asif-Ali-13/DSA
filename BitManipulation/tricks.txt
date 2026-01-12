@@ -1,0 +1,48 @@
+Bit Manipulation Tricks and Techniques
+
+1. Swapping Two Numbers Without a Third Variable
+A = A ^ B
+B = A ^ B
+A = A ^ B
+
+2. Checking if the i-th Bit is Set
+(1 << i) & num   → set if result ≠ 0
+(num >> i) & 1   → set if result ≠ 0
+
+3. Setting the i-th Bit
+num | (1 << i)
+
+4. Clearing the i-th Bit
+num & ~(1 << i)
+
+5. Toggling the i-th Bit
+num ^ (1 << i)
+
+6. Check if n is a power of 2 or not 
+n > 0 && (n & (n - 1)) == 0
+
+7. Count no. of Set bits 
+public int countSetBits(int n) {
+    int count = 0;  // Variable to store the count of set bits
+
+    // Step 1: While n is non-zero, turn off the rightmost set bit
+    while (n > 0) {
+        n &= (n - 1);  // Turn off the rightmost set bit
+        count++;  // Increment the count
+    }
+
+    // Step 2: Return the count of set bits
+    return count;
+}
+
+8. set the rightmost unset bit 
+public static int setRightmostUnsetBit(int n) {
+    // OR with n+1 sets the rightmost 0 to 1
+    return n | (n + 1);
+}
+
+
+Negative number is stored in the form of 2's compliment.
+
+// Convert the number into binary string representation
+String binary = Integer.toBinaryString(n);  
