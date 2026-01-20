@@ -1,0 +1,46 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Given an array nums of length n, every integer in the array appears twice except for 
+two integers. Identify and return the two integers that appear only once in the array. 
+Return the two numbers in ascending order.
+
+----------------------------------------------------------------------------------------
+
+approach:
+    1. Perform Xor over the whole array
+    2. Determine the rightmost set bit (bit that is 1) in the result from the first 
+    step. This set bit can be used to differentiate the two unique numbers since they 
+    must differ at this bit position.
+    3. Traverse the array again, but this time divide the numbers into two groups:
+        One group where the numbers have the rightmost set bit.
+        Another group where the numbers do not have this bit set.
+
+----------------------------------------------------------------------------------------
+
+code:
+
+public int[] singleNumber(int[] nums) {
+    int n = nums.length;
+    int xor = 0;
+
+    for(int num: nums) xor ^= num;
+    int rightmost = (xor & (xor -1)) ^ xor;
+
+    int xor1 = 0, xor2 = 0;
+    for(int num: nums){
+        if((num & rightmost) != 0){
+            xor1 ^= num;
+        }
+        else xor2 ^= num;
+    }
+    if(xor1 < xor2) return new int[]{xor1, xor2};
+    return new int[]{xor2, xor1};
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(N)
+sc: O(1)
+
+----------------------------------------------------------------------------------------
