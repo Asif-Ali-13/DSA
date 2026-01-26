@@ -1,0 +1,55 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Given an array arr[] of unique elements. Generate all possible permutations of 
+the elements in the array.
+
+----------------------------------------------------------------------------------------
+
+approach:
+    1. Think how can i make different permutations
+    2. Think of swapping, how it can help
+    3. use it, with recursion
+
+----------------------------------------------------------------------------------------
+
+code:
+
+class Solution {
+    public static ArrayList<ArrayList<Integer>> permuteDist(int[] arr) {
+        
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        solve(0, arr, res);
+        return res;
+    }
+    
+    private static void solve(
+        int idx, int[] arr, ArrayList<ArrayList<Integer>> res
+    ){
+        if(idx == arr.length){
+            ArrayList<Integer> cp = new ArrayList<>();
+            for(int a: arr) cp.add(a);
+            res.add(cp);
+            return;
+        }
+        
+        for(int i=idx; i<arr.length; i++){
+            swap(i, idx, arr);
+            solve(idx +1, arr, res);
+            swap(i, idx, arr);
+        }
+    }
+    
+    private static void swap(int i, int j, int arr[]){
+        int t = arr[i];
+        arr[i] = arr[j];
+        arr[j] = t;
+    }
+};
+
+----------------------------------------------------------------------------------------
+
+tc: O(N!)
+sc: O(N)
+
+----------------------------------------------------------------------------------------
