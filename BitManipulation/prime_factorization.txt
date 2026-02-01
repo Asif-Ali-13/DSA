@@ -1,0 +1,88 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+You are given an integer array queries of length n.
+Return the prime factorization of each number in array queries in sorted order.
+
+----------------------------------------------------------------------------------------
+
+approach:
+    1. Iterate through all numbers from 2 to MAX_N 
+    2. For each prime number found (i.e., numbers whose SPF value is still 1), 
+    mark its multiples with the prime number as their smallest prime factor.
+    3. This process ensures that every number up to MAX_N has its smallest prime 
+    factor precomputed efficiently.
+
+----------------------------------------------------------------------------------------
+
+code:
+
+class Solution {
+    private static final int MAX_N = 100000;
+
+    /* To store the smallest prime factors for 
+    all number with all nodes initially 
+    having smallest prime factor as 1 */
+    private int[] SPF = new int[MAX_N + 1];
+
+    /* Constructor to initialize the smallest prime factor array */
+    public Solution() {
+        Arrays.fill(SPF, 1);
+    }
+
+    /* Function to precompute smallest prime 
+    factor using sieve of eratosthenes */
+    private void sieve() {
+
+        for (int i = 2; i <= MAX_N; i++) {
+            // If the number is a prime number 
+            if (SPF[i] == 1) {
+
+                /* Mark all its multiples who have not 
+                received their smallest prime factor yet*/
+                for (int j = i; j <= MAX_N; j += i) {
+                    
+                    // If smallest prime factor not received yet
+                    if (SPF[j] == 1) {
+
+                        /* Store i as the smallest 
+                        prime factor for its multiple */
+                        SPF[j] = i;
+                    }
+                }
+            }
+        }
+    }
+
+    /* Helper function to find the prime 
+    factorization of a number */
+    private List<Integer> primeFact(int n) {
+        List<Integer> ans = new ArrayList<>();
+
+        while (n != 1) {
+            ans.add(SPF[n]); 
+            n = n / SPF[n];
+        }
+        return ans;
+    }
+
+    public List<List<Integer>> primeFactors(int[] queries) {
+        /* Precompute the smallest 
+        possible factor for all numbers */
+        sieve();
+
+        List<List<Integer>> ans = new ArrayList<>();
+
+        for (int query : queries) {
+            ans.add(primeFact(query));
+        }
+        return ans;
+    }
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(max_N x log(log(max_N))) + O(N x log(num))
+sc: O(max_N) + O(N x log(num))
+
+----------------------------------------------------------------------------------------
