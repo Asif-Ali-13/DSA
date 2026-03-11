@@ -1,0 +1,55 @@
+----------------------------------------------------------------------------------------
+
+problem statement:
+Given an array arr[] of positive integers, find the total sum of the minimum elements 
+of every possible subarrays.
+
+----------------------------------------------------------------------------------------
+
+approach:
+    1. Notice, we need to find the minimum of all subarrays and sum up them.
+    2. If we can find a particular number is minimum for how many subarrays.
+    3. Create a Monotonic Increasing stack 
+        - find out the minimum with no. of subarrays and add their product in result.
+    4. How to find no. of subarrays in which the element is minimum.
+    5. If the new coming element is smaller then the peek element, then 
+        - the peek element is minimum for the no. of subarrays till the idx of 
+        new element from its own in right side
+        - the peek element is minimum for the no. of subarrays from its idx 
+        to the idx of the element that is beneath in the stack to it in left side.
+
+----------------------------------------------------------------------------------------
+
+code:
+
+class Solution {
+    public int sumSubMins(int[] arr) {
+        
+        int n = arr.length;
+        Stack<Integer> st = new Stack<Integer>();
+        st.push(-1);
+        int res = 0;
+        
+        for(int i=0; i<n; i++) {
+            
+            while(st.peek() != -1 && arr[i] < arr[st.peek()]) {
+                int idx = st.pop();
+                res += arr[idx] * (idx - st.peek()) * (i - idx);
+            }
+            st.push(i);
+        }
+        
+        while(st.peek() != -1) {
+            int idx = st.pop();
+            res += arr[idx] * (idx - st.peek()) * (n - idx);
+        }
+        return res;
+    }
+}
+
+----------------------------------------------------------------------------------------
+
+tc: O(N)
+sc: O(N)
+
+----------------------------------------------------------------------------------------
