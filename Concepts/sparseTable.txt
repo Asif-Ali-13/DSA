@@ -1,0 +1,74 @@
+// Range Min/Max Query
+/**
+ * This class builds the min/max sparse tables
+ * for a given array (nums) and provide some public fns
+ * to query for finding the min/max for a specific range.
+ */
+class RMQ {
+    private final int[] nums;
+    private final int[] log2;
+    private final int[][] stMin;
+    private final int[][] stMax;
+    
+    RMQ(int[] nums) {
+        this.nums = nums;
+
+        int n = nums.length;
+        int rows = 31 - Integer.numberOfLeadingZeros(n);
+
+        stMin = new int[rows + 1][n];
+        stMax = new int[rows + 1][n];
+
+        log2 = new int[n + 1];
+        for (int i = 2; i <= n; i++) {
+            log2[i] = log2[i / 2] + 1;
+        }
+
+        buildTables();
+    }
+
+    private void buildTables() {
+        int n = nums.length;
+        int rows = stMin.length - 1;
+
+        for (int j=0; j<n; j++) {
+            stMin[0][j] = this.nums[j];
+            stMax[0][j] = this.nums[j];
+        }
+
+        for (int i=1; i<=rows; i++) {
+            int len = 1 << i;
+            int half = 1 << (i -1);
+
+            for (int j=0; j+(1<<i) <= n; j++) {
+                
+                stMin[i][j] = Math.min(
+                    stMin[i -1][j], stMin[i -1][j + half]
+                );
+
+                stMax[i][j] = Math.max(
+                    stMax[i -1][j], stMax[i -1][j + half]
+                );
+            }
+        }
+    }
+
+    public int minQuery(int l, int r) {
+        int range = r - l + 1;
+        int seg = log2[range];
+
+        return Math.min(
+            this.stMin[seg][l], this.stMin[seg][r - (1<<seg) +1]
+        );
+    }
+
+    public int maxQuery(int l, int r) {
+        int range = r - l + 1;
+        int seg = log2[range];
+
+        return Math.max(
+            this.stMax[seg][l], this.stMax[seg][r - (1<<seg) +1]
+        );
+    }
+}
+
